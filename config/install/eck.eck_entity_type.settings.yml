@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - settings
+id: settings
+label: Settings
+created: true
+changed: true
+uid: false
+title: false

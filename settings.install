@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Installation file for settings module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function settings_install() {
+  // Add our base fields to the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function settings_uninstall() {
+  // Remove our base fields from the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}

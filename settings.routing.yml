@@ -1,0 +1,42 @@
+settings.content:
+  path: '/admin/content/settings'
+  defaults:
+    _controller: '\Drupal\settings\Controller\SettingsOverview::overviewContent'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer settings content'
+
+settings.settings:
+  path: '/admin/config/settings'
+  defaults:
+    _controller: '\Drupal\settings\Controller\SettingsOverview::overviewConfig'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+settings.settings.add:
+  path: '/admin/config/settings/add/{key}'
+  defaults:
+    _form: '\Drupal\settings\Form\AddForm'
+    _title: 'Add a settings group'
+    key: null
+  requirements:
+    _permission: 'administer site configuration'
+
+settings.settings.delete:
+  path: '/admin/config/settings/delete/{key}'
+  defaults:
+    _form: '\Drupal\settings\Form\DeleteForm'
+    _title: 'Delete a settings group'
+  requirements:
+    _permission: 'administer site configuration'
+
+settings.settings.redirect:
+  path: '/admin/content/settings/redirect/{key}/{destination}/{anchor}'
+  defaults:
+    _controller: '\Drupal\settings\Controller\SettingsOverview::redirectSetting'
+    _title: 'Settings'
+    destination: null
+    anchor: null
+  requirements:
+    _permission: 'administer settings content'

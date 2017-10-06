@@ -1,0 +1,10 @@
+services:
+  settings.settings:
+    class: Drupal\settings\Service\Settings
+    arguments: ['@entity_type.manager', '@config.factory', '@entity.repository']
+
+  settings.config_subscriber:
+    class: Drupal\settings\EventSubscriber\ConfigSubscriber
+    arguments: ['@settings.settings']
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,13 @@
+settings.settings:
+  title: 'Settings'
+  description: 'Configure settings'
+  route_name: settings.settings
+  parent: system.admin_config
+  weight: 20
+
+settings.content:
+  title: 'Settings'
+  description: 'Configure site-wide settings'
+  route_name: settings.content
+  parent: system.admin_content
+  weight: 20

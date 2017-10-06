@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - settings
+  config:
+    - eck.eck_entity_type.settings
+name: Global
+type: global
+description: ''

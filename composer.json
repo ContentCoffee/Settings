@@ -1,0 +1,8 @@
+{
+    "name": "contentcoffee/settings",
+    "description": "D8+ module to make content entity settings.",
+    "require": {
+        "php": "^5.6 || ^7.0"
+    },
+    "type": "drupal-module"
+}

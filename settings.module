@@ -1,0 +1,113 @@
+<?php
+
+/**
+ * @file
+ * Defines the Settings module.
+ *
+ * @category module
+ *
+ * @package Settings
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Get the entity for a key.
+ */
+function settings_get($key)
+{
+    return Drupal::service('settings.settings')
+        ->read($key);
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ *
+ * More intel at https://www.drupal.org/node/1879542
+ */
+function settings_entity_base_field_info(EntityTypeInterface $entity_type)
+{
+    $fields = [];
+
+    // Attach a machine name field to our bundle.
+    if ($entity_type->id() == 'settings') {
+        $fields['settings_key'] = BaseFieldDefinition::create('string')
+            ->setLabel(t('Key'))
+            ->setDescription(t('The key machine name of this config'))
+            ->setRequired(true)
+            ->setReadOnly(true)
+            ->setDisplayConfigurable('view', false)
+            ->setDisplayConfigurable('form', true)
+            ->setDisplayOptions('form', array(
+                'type' => 'hidden',
+                'weight' => 20,
+            ));
+    }
+
+    return $fields;
+}
+
+
+/**
+ * Disable the form action if they do not have the permission.
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function settings_form_alter(&$form, $form_state, $form_id)
+{
+    if (strpos($form_id, "settings_") === 0) {
+        // check the permission for delete.
+        /** @var \Drupal\user\Entity\User $user */
+        $user = \Drupal::currentUser();
+        if (!$user->hasPermission('delete settings group')) {
+            unset($form['actions']['delete']);
+        }
+        
+        // Since the entity is NOT in the form we load it via the route.
+        /** @var \Drupal\eck\Entity\EckEntity $entity */
+        if ($entity = \Drupal::routeMatch()->getParameter('settings')) {
+            $form['#title'] = t(
+                'Edit setting %settingName',
+                ['%settingName' => $entity->type->entity->label()]
+            );
+        }
+    
+       
+    }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function settings_menu_local_tasks_alter(&$data, $route_name)
+{
+    /** @var \Drupal\user\Entity\User $user */
+    $user = \Drupal::currentUser();
+
+    if ($route_name === 'entity.settings.edit_form' && !$user->hasPermission('delete settings group')) {
+        unset($data['tabs'][0]['eck.entity_content:settings.eck_delete_tab']);
+    }
+}
+
+/**
+ * Prevent delete on settings if you don't have the proper rights.
+ *
+ * @param \Drupal\Core\Entity\EntityStorageInterface $entity
+ * @param string $operation
+ * @param \Drupal\Core\Session\AccountInterface $user
+ * @return AccessResult
+ */
+function settings_settings_access($entity, $operation, $user)
+{
+    // Forbid.
+    if ($operation == "delete") {
+        return AccessResult::allowedIfHasPermission($user, 'delete settings group');
+    }
+
+    // Other wise...
+    return AccessResult::neutral();
+}

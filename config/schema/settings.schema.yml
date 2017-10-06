@@ -1,0 +1,23 @@
+settings.settings:
+  type: config_object
+  label: 'Settings settings'
+  mapping:
+    keys:
+      type: sequence
+      label: List of keys
+      sequence:
+        type: mapping
+        label: Per key setting.
+        mapping:
+          key:
+            type: string
+            label: The actual key
+          bundle:
+            type: string
+            label: The bundle of the key
+          label:
+            type: string
+            label: The label for this key
+          desc:
+            type: string
+            label: The end-user description for this key

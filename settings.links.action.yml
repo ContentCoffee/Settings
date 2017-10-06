@@ -1,0 +1,8 @@
+settings.settings_add:
+  route_name: settings.settings.add
+  title: 'Add setting'
+  appears_on:
+    - settings.settings
+  options:
+      query:
+        destination: '/admin/config/settings'

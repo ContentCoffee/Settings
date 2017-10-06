@@ -1,0 +1,8 @@
+administer settings content:
+  title: 'Administer settings content'
+  description: 'Be able to change the effective content'
+  restrict access: true
+delete settings group:
+  title: 'Delete a settings group'
+  description: 'Ideally the client should not be able to delete the grouping.'
+  restrict access: true
