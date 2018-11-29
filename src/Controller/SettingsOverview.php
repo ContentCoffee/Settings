@@ -38,6 +38,7 @@ class SettingsOverview extends ControllerBase {
   public function overviewConfig() {
     $rows = [];
 
+
     foreach ((array) $this->settings->readKeys() as $key => $value) {
       $operations = [
         'data' => [
@@ -158,6 +159,7 @@ class SettingsOverview extends ControllerBase {
       }
 
 
+
       if (isset($keys[$value->settings_key->value])) {
         $rows[] = [
           $keys[$value->settings_key->value]['label'],
@@ -166,7 +168,7 @@ class SettingsOverview extends ControllerBase {
         ];
       }
     }
-
+    
     $build = [
       '#theme' => 'table',
       '#rows' => $rows,

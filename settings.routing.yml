@@ -1,5 +1,5 @@
 settings.content:
-  path: '/admin/content/settings'
+  path: '/admin/content/ssettings'
   defaults:
     _controller: '\Drupal\settings\Controller\SettingsOverview::overviewContent'
     _title: 'Settings'
@@ -7,7 +7,7 @@ settings.content:
     _permission: 'administer settings content'
 
 settings.settings:
-  path: '/admin/config/settings'
+  path: '/admin/config/ssettings'
   defaults:
     _controller: '\Drupal\settings\Controller\SettingsOverview::overviewConfig'
     _title: 'Settings'
@@ -15,7 +15,7 @@ settings.settings:
     _permission: 'administer site configuration'
 
 settings.settings.add:
-  path: '/admin/config/settings/add/{key}'
+  path: '/admin/config/ssettings/add/{key}'
   defaults:
     _form: '\Drupal\settings\Form\AddForm'
     _title: 'Add a settings group'
@@ -24,7 +24,7 @@ settings.settings.add:
     _permission: 'administer site configuration'
 
 settings.settings.delete:
-  path: '/admin/config/settings/delete/{key}'
+  path: '/admin/config/ssettings/delete/{key}'
   defaults:
     _form: '\Drupal\settings\Form\DeleteForm'
     _title: 'Delete a settings group'
@@ -32,7 +32,7 @@ settings.settings.delete:
     _permission: 'administer site configuration'
 
 settings.settings.redirect:
-  path: '/admin/content/settings/redirect/{key}/{destination}/{anchor}'
+  path: '/admin/content/ssettings/redirect/{key}/{destination}/{anchor}'
   defaults:
     _controller: '\Drupal\settings\Controller\SettingsOverview::redirectSetting'
     _title: 'Settings'
